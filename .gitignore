@@ -1,0 +1,16 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+#dev
+/.idea
+
+# compiled output
+/tmp
+dist/
+
+# dependencies
+node_modules/
+
+# misc
+*.orig
+npm-debug.log*
+yarn-error.log*
