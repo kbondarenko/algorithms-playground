@@ -1,10 +1,10 @@
-import {readGraphFromFile} from "./readGraphFromFile";
+import {readTreeFromFile} from "./readTreeFromFile";
 import * as path from "path";
 import {calculateDepthUseDfs} from "./dfsForTrees";
 
 const separator: string = '------------------------';
 
-const nodes = readGraphFromFile(path.resolve('./tree'));
+const nodes = readTreeFromFile(path.resolve('./tree'));
 console.log('Read from file', nodes);
 console.log(separator);
 

@@ -17,7 +17,7 @@ function getNodeFromStr(line: string): [number, number] {
     return [node, ancestor];
 }
 
-export function readGraphFromFile(filePath: string): IGraph | null {
+export function readTreeFromFile(filePath: string): IGraph | null {
     try {
         const file = fs.readFileSync(filePath, {encoding: 'utf8'});
         const nodes: Array<Array<number>> = [];

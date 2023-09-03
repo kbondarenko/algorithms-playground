@@ -1,6 +1,6 @@
 // depth-first-search example for trees
 
-import {readGraphFromFile} from "./readGraphFromFile";
+import {readTreeFromFile} from "./readTreeFromFile";
 import * as path from "path";
 
 class DepthCalculator {
@@ -31,7 +31,7 @@ class DepthCalculator {
 }
 
 export function calculateDepthUseDfs(filePath: string): number[] {
-    const tree = readGraphFromFile(filePath);
+    const tree = readTreeFromFile(filePath);
     const depthCalculator = new DepthCalculator(tree.nodes, tree.rootNode, tree.nodesCount);
 
     return depthCalculator.getNodesDepth();
