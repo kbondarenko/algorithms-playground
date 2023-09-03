@@ -3,6 +3,7 @@ import * as fs from 'fs';
 
 interface IGraph {
     nodesCount: number;
+    rootNode: number;
     nodes: Array<Array<number>>;
 }
 
@@ -16,24 +17,27 @@ function getNodeFromStr(line: string): [number, number] {
     return [node, ancestor];
 }
 
-function readGraphFile(): IGraph | null {
+export function readGraphFromFile(filePath: string): IGraph | null {
     try {
-        const file = fs.readFileSync(path.resolve('./graph'), {encoding: 'utf8'});
+        const file = fs.readFileSync(filePath, {encoding: 'utf8'});
         const nodes: Array<Array<number>> = [];
 
         const lines = file.split(/\r?\n/);
-        const matches = lines[0].match(/^N = ([0-9]+)$/) || [];
-        const nodesCount = parseInt(matches[1]);
+        const nodeCountMatches = lines[0].match(/^N = ([0-9]+)$/) || [];
+        const nodesCount = parseInt(nodeCountMatches[1]);
 
-        if (isNaN(nodesCount)) {
-            throw new Error('nodesCount is NaN');
+        const rootNodeMatches = lines[1].match(/^Root = ([0-9]+)$/) || [];
+        const rootNode:number = parseInt(rootNodeMatches[1]);
+
+        if (isNaN(nodesCount) || isNaN(rootNode)) {
+            throw new Error('nodesCount or rootNode is NaN');
         }
 
         for (let i = 0; i < nodesCount; i++) {
             nodes[i] = [];
         }
 
-        for (let i = 1; i < lines.length; i++) {
+        for (let i = 2; i < lines.length; i++) {
             const line = lines[i];
 
             if (!line.trim()) {
@@ -41,11 +45,18 @@ function readGraphFile(): IGraph | null {
             }
 
             const [node, ancestor] = getNodeFromStr(line);
+
+            if (ancestor === -1) {
+                continue;
+            }
+
             nodes[node]?.push(ancestor);
+            nodes[ancestor]?.push(node);
         }
 
         return {
             nodesCount,
+            rootNode,
             nodes
         }
     } catch (e) {
@@ -53,6 +64,3 @@ function readGraphFile(): IGraph | null {
         return null;
     }
 }
-
-const nodes = readGraphFile();
-console.log('RESULT', nodes);
