@@ -15,7 +15,8 @@ describe('trees', function () {
     });
 
     it('should calculate depth use dfs', function () {
-        const depth = calculateDepthUseDfs(path.resolve('./tree'));
+        const tree = readTreeFromFile(path.resolve('./tree'));
+        const depth = calculateDepthUseDfs(tree);
         expect(depth).toStrictEqual([0, 1, 1, 2, 2, 2, 2, 2, 3]);
     })
 })

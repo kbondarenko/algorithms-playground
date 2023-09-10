@@ -1,39 +1,24 @@
+import { IGraph } from "./interfaces/IGraph";
+
 // depth-first-search example for trees
+export function calculateDepthUseDfs(tree: IGraph): number[] {
+    const { nodes, rootNode, nodesCount } = tree;
+    const nodesDepth: number[] = new Array(nodesCount).fill(0);
 
-import {readTreeFromFile} from "./readTreeFromFile";
-import * as path from "path";
-
-class DepthCalculator {
-    private readonly nodesDepth: number[];
-
-    constructor(private vertices: Array<Array<number>>, private rootNode: number, private nodesCount: number) {
-        this.nodesDepth = (new Array(nodesCount)).fill(0);
-    }
-
-    getNodesDepth(): number[] {
-        this.dfs(this.rootNode, 0, -1);
-        return this.nodesDepth;
-    }
-
-    private dfs(node: number, depth: number = 0, ancestor: number = -1) {
-        this.nodesDepth[node] = depth;
-
-        for (let i = 0; i < this.vertices[node].length; i++) {
-            const a = this.vertices[node][i];
+    function dfs(node: number, depth: number = 0, ancestor: number = -1) {
+        nodesDepth[node] = depth;
+        for (let i = 0; i < nodes[node].length; i++) {
+            const a = nodes[node][i];
 
             if (a === ancestor) {
                 continue;
             }
 
-            this.dfs(a, depth + 1, node)
+            dfs(a, depth + 1, node);
         }
     }
+
+    dfs(rootNode, 0, -1);
+
+    return nodesDepth;
 }
-
-export function calculateDepthUseDfs(filePath: string): number[] {
-    const tree = readTreeFromFile(filePath);
-    const depthCalculator = new DepthCalculator(tree.nodes, tree.rootNode, tree.nodesCount);
-
-    return depthCalculator.getNodesDepth();
-}
-

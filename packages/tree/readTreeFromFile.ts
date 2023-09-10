@@ -1,15 +1,15 @@
-import * as fs from 'fs';
-
-interface IGraph {
-    nodesCount: number;
-    rootNode: number;
-    nodes: Array<Array<number>>;
-}
+import * as fs from "fs";
+import { IGraph } from "./interfaces/IGraph";
 
 function getNodeFromStr(line: string): [number, number] {
-    const [node, ancestor] = line.split(':').map(s => parseInt(s.trim()));
+    const [node, ancestor] = line.split(":").map((s) => parseInt(s.trim()));
 
-    if (node === undefined || ancestor === undefined || isNaN(node) || isNaN(ancestor)) {
+    if (
+        node === undefined ||
+        ancestor === undefined ||
+        isNaN(node) ||
+        isNaN(ancestor)
+    ) {
         throw new Error(`Failed to parse line: ${line}`);
     }
 
