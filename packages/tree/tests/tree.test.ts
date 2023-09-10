@@ -1,8 +1,9 @@
 import * as path from "path";
 import {readTreeFromFile} from "../scripts/readTreeFromFile";
 import {describe, expect, it} from 'vitest'
-import {calculateDepthUseDfs} from "../scripts/dfsForTrees";
+import {calculateDepthUseDfs} from "../scripts/calculateDepthUseDfs";
 import {getLowestCommonAncestor} from "../scripts/getLowestCommonAncestor";
+import {calculateDepthUseBfs} from "../scripts/calculateDepthUseBfs";
 
 describe('trees', function () {
     it('should read tree from file', () => {
@@ -18,6 +19,12 @@ describe('trees', function () {
     it('should calculate depth use dfs', function () {
         const tree = readTreeFromFile(path.join(__dirname, './tree'));
         const depth = calculateDepthUseDfs(tree);
+        expect(depth).toStrictEqual([0, 1, 1, 2, 2, 2, 2, 2, 3]);
+    })
+
+    it('should calculate depth use bfs', function () {
+        const tree = readTreeFromFile(path.join(__dirname, './tree'));
+        const depth = calculateDepthUseBfs(tree);
         expect(depth).toStrictEqual([0, 1, 1, 2, 2, 2, 2, 2, 3]);
     })
 
