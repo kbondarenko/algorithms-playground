@@ -1,5 +1,7 @@
+type GraphNeighboringVertices = Array<number>;
+
 export interface IGraph {
     nodesCount: number;
     rootNode: number;
-    nodes: Array<Array<number>>;
+    nodes: Array<GraphNeighboringVertices>;
 }

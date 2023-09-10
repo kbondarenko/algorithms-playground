@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { IGraph } from "./interfaces/IGraph";
+import { IGraph } from "../interfaces/IGraph";
 
 function getNodeFromStr(line: string): [number, number] {
     const [node, ancestor] = line.split(":").map((s) => parseInt(s.trim()));

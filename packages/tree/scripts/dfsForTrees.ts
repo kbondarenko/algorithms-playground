@@ -1,4 +1,4 @@
-import { IGraph } from "./interfaces/IGraph";
+import { IGraph } from "../interfaces/IGraph";
 
 // depth-first-search example for trees
 export function calculateDepthUseDfs(tree: IGraph): number[] {
